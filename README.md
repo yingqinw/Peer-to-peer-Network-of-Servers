@@ -34,14 +34,11 @@ The message header consists of lines of text, each of which is terminated by a "
 where VALUE may have leading and trailing space characters. The end of the message header is an empty line (i.e., only contains "\r\n").
 One of the lines in the message header must have the "Content-Length" key. The corresponding value specifies the exact number of bytes in the message body which immediately follows the empty line after the message header. Since we are using persistent TCP connections, within a connection, multiple messages can be sent. At the end of a message body, another message begins immediately. You must treat the message body as binary data when you are detecting message boundaries. You must reliably detect message boundaries or your node can get very confused.
 
-There can be various reasons why a message is considered malformed. For example, if the first line in the header has an unknown MSGTYPE or the rest of the line does not contain the expected information, then the message is considered malformed. If some lines (except for the first line) in the header is missing a colon, the message is considered malformed. If the header does not contain a "Content-Length" key, the message is considered malformed. And so on. If a node receives a malformed message, it must immediately shutdown and close the socket and delete the connection. But since your node only has to work with other nodes running exactly the same code and written by yourself, your node should never see a malformed message!
-
-Below are the details of each of the 353NET protocol messages.
-
 **User Console**
 
 Each node must have an interactive commandline interface. Your program must use "NODEID> " (i.e., the NodeID, followed by a "greater than" symbol, followed by a space character) as the command prompt to tell that user which node they are on and that you are expecting the user to enter a line of command. Unless the user shutdowns the node using the quit command, the node should run forever.
 The commands and their meanings are:
+![截屏2022-01-17 上午3 25 48](https://user-images.githubusercontent.com/35575612/149761703-b6abfb02-377a-4d54-8f04-1b634718e58a.png)
 
 **Logging**
 Logging is extremely important in a networking application like this one. It should be very useful to help you debug this assignment. It's also extremely important because part of the grading will be done by looking at the log file your node produced. Without looking at the log, it would be very difficult for the grader to tell what your node is doing. The bottomline is that if you don't log all the required messages correctly, you could end up losing a lot of points!
@@ -53,15 +50,8 @@ You must use "r" if the message was "received" by this node.
 You must use "i" if the message was sent and "initiated" by this node.
 You must use "d" if the message was sent due to "flooding" by this node (and not initiated by this node).
 You must use "f" if the message was sent due to "forwarding" by this node (i.e., the message is a UCASTAPP message and is being "routed" by this node to reach a particular target/destination node and this node is not the initiator).
+
 If the "category" is "r", then the NEIGHBOR field is the NodeID of the neighbor from which you received the corresponding message.
-
 If the "category" is "i", "d", or "f", then the NEIGHBOR field is the NodeID of the neighbor to which you sent the corresponding message.
-
-Please note that while all messages can be "received", when it comes to sending a message, a SAYHELLO message can only be "initiated", an LSUPDATE message can only be "initiated" or "flooded", and a UCASTAPP message can only be "initiated" or "routed".
-
-The TTL field corresponds to the value of the TTL key in every message header.
-
-The FLOOD field must be either "F" (if the value of the Flood key in the message header is 1) or the "dash" character (if the value of the Flood key in the message header is 0).
-
 
 

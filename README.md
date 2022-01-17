@@ -47,12 +47,17 @@ Every message coming into a node and every message going out of a node must be l
 
     [TIMESTAMP] {r|i|d|f} MSGTYPE NEIGHBOR TTL FLOOD CONTENT_LENGTH msg-dependent-data
 TIMESTAMP is the current time in the same format as a PA2 timestamp. The next field is referred to as the "category" field. It's a single character and it can have 4 possible values:
+
 You must use "r" if the message was "received" by this node.
+
 You must use "i" if the message was sent and "initiated" by this node.
+
 You must use "d" if the message was sent due to "flooding" by this node (and not initiated by this node).
+
 You must use "f" if the message was sent due to "forwarding" by this node (i.e., the message is a UCASTAPP message and is being "routed" by this node to reach a particular target/destination node and this node is not the initiator).
 
 If the "category" is "r", then the NEIGHBOR field is the NodeID of the neighbor from which you received the corresponding message.
+
 If the "category" is "i", "d", or "f", then the NEIGHBOR field is the NodeID of the neighbor to which you sent the corresponding message.
 
 

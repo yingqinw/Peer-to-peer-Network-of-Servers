@@ -1,0 +1,88 @@
+#!/bin/tcsh -f
+#
+# This script is for your convenience.  It's NOT EXACTLY THE SAME as going throught the steps in the grading guidelines.
+# It's best that you run through section (D) of the grading guidelines manually so you won't get any grading surprises!
+#
+# This file should be in the "pa5data" subdirectory of the directory where you have your "pa5" executable.  To run it do:
+#     chmod 755 ./pa5data/tmux-pa5-D.txt
+#     ./pa5data/tmux-pa5-D.txt
+# To switch to use a different pane, please type <Cntrl+b> follwed the up/down/left/right key on your keyboard.
+#
+# pa5 topology:
+#     +-------+   +-------+     +-------+
+#     | 12000 +---+ 12002 +-----+ 12004 |
+#     +-------+   +-------+     +-------+
+
+setenv SHELL "/bin/tcsh"
+set session_name="pa5"
+set running=`tmux list-sessions | grep "${session_name}:"`
+
+if ("x$running" != "x") then
+    # it's running
+    echo "Session '${session_name}' already exists"
+else
+    # create 4 panes, one at the bottom, two on the left, and one on the right
+
+    # create a tmux session
+    tmux new-session -d -s ${session_name} '/bin/rm -f pa5data/*.log pa5data/*.pid; echo -n "(window1) "; \
+            script -c "./pa5 pa5data/pa5-12000.ini" script.D00.txt; \
+            echo "[ (1) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    # split the current pane vertically 99/1
+    tmux split-window -v -p 1
+    # split the top pane horizontally 60/40
+    tmux split-window -h -t top -p 40 '\
+            echo "[     +-------+   +-------+     +-------+  ]"; \
+            echo "[     | 12000 +---+ 12002 +-----+ 12004 |  ]"; \
+            echo "[     +-------+   +---+---+     +---+---+  ]"; \
+            echo "[ in all windows, type "\""netgraph"\"" and verify ]"; \
+            echo "[ in all windows, type "\""forwarding"\"" and verify ]"; \
+            echo "[ (D.1) in 1st window, type "\""rdtsend :12000 hello"\"" ]"; \
+            echo "[       in 1st window, type "\""rdtsend :12012 hello"\"" ]"; \
+            echo "[ (D.2) in 1st window, type "\""rdtsend :12002 hello"\"" ]"; \
+            echo "[       in 1st window, should eventually see msg about "\""hello"\"" sent and acknowledged ]"; \
+            echo "[       in 2nd window, should eventually see msg about "\""hello"\"" received ]"; \
+            echo "[ (D.3) in 1st window, type "\""rdtsend :12004 howdy"\"" ]"; \
+            echo "[       in 3rd window, should receive "\""howdy"\"" when finished ]"; \
+            echo "[ (D.4) type the following 2 commands quickly: ]"; \
+            echo "[           in 1st window, type "\""rdtsend :12004 good-day"\"" ]"; \
+            echo "[           in 3rd window, type "\""rdtsend :12000 bye-bye"\"" ]"; \
+            echo "[       wait for sender and receive to finish ]"; \
+            echo "[       in 1st window, should receive "\""bye-bye"\"" when finished ]"; \
+            echo "[       in 3rd window, should receive "\""good-day"\"" when finished ]"; \
+            echo "[ (D.5) in 1st window, type "\""rdtsend :12004 hold-on"\"" ]"; \
+            echo "[       after 1 second, in 2nd window, type "\""quit"\"" ]"; \
+            echo "[           should start seeing timeout in 1st window every 6 seconds ]"; \
+            echo "[           wait to see at least 3 timeouts ]"; \
+            echo "[       in 2nd window, type <Ctrl+d> to restart :12002 ]"; \
+            echo "[       in 3rd window, should receive "\""hold-on"\"" when finished ]"; \
+            echo "[ (D.6) type the following 2 commands quickly: ]"; \
+            echo "[           in 1st window, type "\""rdtsend :12004 left-right"\"" ]"; \
+            echo "[           in 3rd window, type "\""rdtsend :12000 high-low"\"" ]"; \
+            echo "[       after 1 second, in 2nd window, type "\""quit"\"" ]"; \
+            echo "[           should start seeing timeout in 1st and 3rd windows every 6 seconds ]"; \
+            echo "[           wait to see at least 3 timeouts in 1st and 3rd windows ]"; \
+            echo "[       in 2nd window, type <Ctrl+d> to restart :12002 ]"; \
+            echo "[       in 1st window, should receive "\""high-low"\"" when finished ]"; \
+            echo "[       in 3rd window, should receive "\""left-right"\"" when finished ]"; \
+            echo "[ (D.7) type the following 2 commands quickly: ]"; \
+            echo "[           in 1st window, type "\""rdtsend :12002 left"\"" ]"; \
+            echo "[           in 3rd window, type "\""rdtsend :12002 right"\"" ]"; \
+            echo "[       in 2nd window, should receive both "\""left"\"" and "\""right"\"" ]"; \
+            echo "[ (D.8) type "\""quit"\"" in all windows ]"; \
+            echo "[ type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    # split the left pane vertically 33/67
+    tmux split-window -v -t 0 -p 33 '\
+            sleep 3; echo -n "(window3) "; \
+            script -c "./pa5 pa5data/pa5-12004.ini" script.D04.txt; \
+            echo "[ (3) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    tmux split-window -v -t 0 -p 50 '\
+            sleep 2; echo -n "(window2) "; \
+            script -c "./pa5 pa5data/pa5-12002.ini" script.D02a.txt; \
+            echo "[ (2) type <Ctrl+d> to run :12002 again ]"; cat; \
+            script -c "./pa5 pa5data/pa5-12002.ini" script.D02b.txt; \
+            echo "[ (2) type <Ctrl+d> to run :12002 again ]"; cat; \
+            script -c "./pa5 pa5data/pa5-12002.ini" script.D02c.txt; \
+            echo "[ (2) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+
+    tmux attach-session -d -t ${session_name}
+endif

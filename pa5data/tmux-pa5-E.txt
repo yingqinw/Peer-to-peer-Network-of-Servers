@@ -1,0 +1,88 @@
+#!/bin/tcsh -f
+#
+# This script is for your convenience.  It's NOT EXACTLY THE SAME as going throught the steps in the grading guidelines.
+# It's best that you run through section (E) of the grading guidelines manually so you won't get any grading surprises!
+#
+# This file should be in the "pa5data" subdirectory of the directory where you have your "pa5" executable.  To run it do:
+#     chmod 755 ./pa5data/tmux-pa5-E.txt
+#     ./pa5data/tmux-pa5-E.txt
+# To switch to use a different pane, please type <Cntrl+b> follwed the up/down/left/right key on your keyboard.
+#
+# pa5 topology:
+#     +-------+   +-------+     +-------+
+#     | 12000 +---+ 12002 +-----+ 12004 |
+#     +-------+   +-------+     +-------+
+
+setenv SHELL "/bin/tcsh"
+set session_name="pa5"
+set running=`tmux list-sessions | grep "${session_name}:"`
+
+if ("x$running" != "x") then
+    # it's running
+    echo "Session '${session_name}' already exists"
+else
+    # create 4 panes, one at the bottom, two on the left, and one on the right
+
+    # create a tmux session
+    tmux new-session -d -s ${session_name} '/bin/rm -f pa5data/*.log pa5data/*.pid; echo -n "(window1) "; \
+            script -c "./pa5 pa5data/pa5-12000.ini" script.E00.txt; \
+            echo "[ (1) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    # split the current pane vertically 99/1
+    tmux split-window -v -p 1
+    # split the top pane horizontally 60/40
+    tmux split-window -h -t top -p 40 '\
+            echo "[     +-------+   +-------+     +-------+  ]"; \
+            echo "[     | 12000 +---+ 12002 +-----+ 12004 |  ]"; \
+            echo "[     +-------+   +---+---+     +---+---+  ]"; \
+            echo "[ in all windows, type "\""netgraph"\"" and verify ]"; \
+            echo "[ in all windows, type "\""forwarding"\"" and verify ]"; \
+            echo "[ (E.1) in 1st window, type "\""echoapp :12004"\"" ]"; \
+            echo "[       in 1st window, type "\""hey"\"", should eventually see echoed "\""hey"\"" ]"; \
+            echo "[       in 1st window, press <ENTER>, should see empty line echoed ]"; \
+            echo "[       echoapp should self-terminate and give back original prompt ]"; \
+            echo "[ (E.2) in 1st window, type "\""echoapp :12004"\"" ]"; \
+            echo "[       in 1st window, type "\""world"\"" ]"; \
+            echo "[       after 1 second, in 2nd window, type "\""quit"\"" ]"; \
+            echo "[           should start seeing timeout in 1st window every 6 seconds ]"; \
+            echo "[           wait to see at least 3 timeouts in 1st window ]"; \
+            echo "[       in 2nd window, type <Ctrl+d> to restart :12002 ]"; \
+            echo "[       in 1st window, should eventually see echoed "\""world"\"" ]"; \
+            echo "[       in 1st window, press <ENTER>, should see empty line echoed ]"; \
+            echo "[       echoapp should self-terminate and give back original prompt ]"; \
+            echo "[ (E.3) in 1st window, type "\""echoapp :12004"\"" ]"; \
+            echo "[       in 3rd window, type "\""echoapp :12000"\"" ]"; \
+            echo "[       do the following quickly: ]"; \
+            echo "[           in 1st window, type "\""hello"\"" ]"; \
+            echo "[           in 3rd window, type "\""howdy"\"" ]"; \
+            echo "[       in 1st window, should eventually see echoed "\""hello"\"" ]"; \
+            echo "[       in 3rd window, should eventually see echoed "\""howdy"\"" ]"; \
+            echo "[       do the following quickly: ]"; \
+            echo "[           in 1st window, type "\""bye"\"" ]"; \
+            echo "[           in 3rd window, press <ENTER> to terminate echoapp ]"; \
+            echo "[       in 1st window, should eventually see echoed "\""bye"\"" ]"; \
+            echo "[       in 1st window, press <ENTER> to terminate echoapp ]"; \
+            echo "[ (E.4) in 1st window, type "\""echoapp :12002"\"" ]"; \
+            echo "[       in 3rd window, type "\""echoapp :12002"\"" ]"; \
+            echo "[       do the following quickly: ]"; \
+            echo "[           in 1st window, type "\""byenow"\"" ]"; \
+            echo "[           in 3rd window, type "\""goodday"\"" ]"; \
+            echo "[       in 1st window, should eventually see echoed "\""byenow"\"" ]"; \
+            echo "[       in 3rd window, should eventually see echoed "\""goodday"\"" ]"; \
+            echo "[       in 1st window, press <ENTER> to terminate echoapp ]"; \
+            echo "[       in 3rd window, press <ENTER> to terminate echoapp ]"; \
+            echo "[ (E.5) type "\""quit"\"" in all windows ]"; \
+            echo "[ type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    # split the left pane vertically 33/67
+    tmux split-window -v -t 0 -p 33 '\
+            sleep 3; echo -n "(window3) "; \
+            script -c "./pa5 pa5data/pa5-12004.ini" script.E04.txt; \
+            echo "[ (3) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    tmux split-window -v -t 0 -p 50 '\
+            sleep 2; echo -n "(window2) "; \
+            script -c "./pa5 pa5data/pa5-12002.ini" script.E02a.txt; \
+            echo "[ (2) type <Ctrl+d> to run :12002 again ]"; cat; \
+            script -c "./pa5 pa5data/pa5-12002.ini" script.E02b.txt; \
+            echo "[ (2) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+
+    tmux attach-session -d -t ${session_name}
+endif

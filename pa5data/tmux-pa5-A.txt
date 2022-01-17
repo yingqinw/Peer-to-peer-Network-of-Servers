@@ -1,0 +1,114 @@
+#!/bin/tcsh -f
+#
+# This script is for your convenience.  It's NOT EXACTLY THE SAME as going throught the steps in the grading guidelines.
+# It's best that you run through section (A) of the grading guidelines manually so you won't get any grading surprises!
+#
+# This file should be in the "pa5data" subdirectory of the directory where you have your "pa5" executable.  To run it do:
+#     chmod 755 ./pa5data/tmux-pa5-A.txt
+#     ./pa5data/tmux-pa5-A.txt
+# To switch to use a different pane, please type <Cntrl+b> follwed the up/down/left/right key on your keyboard.
+#
+# pa5 topology:
+#                        +-------+
+#                     /--+ 12010 +--------------------------\
+#                     |  +-------+                          |
+#                     |                                     |
+#     +-------+   +---+---+     +-------+   +-------+   +---+---+
+#     | 12000 +---+ 12002 +-----+ 12004 +---+ 12006 +---+ 12008 |
+#     +-------+   +-------+     +-------+   +-------+   +-------+
+
+setenv SHELL "/bin/tcsh"
+set session_name="pa5"
+set running=`tmux list-sessions | grep "${session_name}:"`
+
+if ("x$running" != "x") then
+    # it's running
+    echo "Session '${session_name}' already exists"
+else
+    # create 4 panes, one at the bottom, two on the left, and one on the right
+
+    # create a tmux session
+    tmux new-session -d -s ${session_name} '/bin/rm -f pa5data/*.log pa5data/*.pid; echo -n "(window1) "; \
+            script -c "./pa5 pa5data/pa5-12000.ini" script.A00.txt; \
+            echo "[ (1) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    # split the current pane vertically 99/1
+    tmux split-window -v -p 1
+    # split the top pane horizontally 60/40
+    tmux split-window -h -t top -p 40 '\
+            echo "[                    +-------+                                ]"; \
+            echo "[                 /--+ 12010 +--------------------------\     ]"; \
+            echo "[                 |  +-------+                          |     ]"; \
+            echo "[                 |                                     |     ]"; \
+            echo "[ +-------+   +---+---+     +-------+   +-------+   +---+---+ ]"; \
+            echo "[ | 12000 +---+ 12002 +-----+ 12004 +---+ 12006 +---+ 12008 | ]"; \
+            echo "[ +-------+   +-------+     +-------+   +-------+   +-------+ ]"; \
+            echo "[ in all windows, type "\""netgraph"\"" and should see following:      ]"; \
+            echo "[     :12000: :12002                                 ]"; \
+            echo "[     :12002: :12000,:12004,:12010 ]"; \
+            echo "[     :12004: :12002,:12006                 ]"; \
+            echo "[     :12006: :12004,:12008                 ]"; \
+            echo "[     :12008: :12006,:12010                 ]"; \
+            echo "[     :12010: :12002,:12008                 ]"; \
+            echo "[ in 1st window, type "\""forwarding"\"" and should see:  ]"; \
+            echo "[     :12002: :12002 ]"; \
+            echo "[     :12004: :12002 ]"; \
+            echo "[     :12006: :12002 ]"; \
+            echo "[     :12008: :12002 ]"; \
+            echo "[     :12010: :12002 ]"; \
+            echo "[ in 2nd window, type "\""forwarding"\"" and should see:  ]"; \
+            echo "[     :12000: :12000 ]"; \
+            echo "[     :12004: :12004 ]"; \
+            echo "[     :12006: :12004 ]"; \
+            echo "[     :12008: :12010 ]"; \
+            echo "[     :12010: :12010 ]"; \
+            echo "[ in 3rd window, type "\""forwarding"\"" and should see:  ]"; \
+            echo "[     :12000: :12002 ]"; \
+            echo "[     :12002: :12002 ]"; \
+            echo "[     :12006: :12006 ]"; \
+            echo "[     :12008: :12006 ]"; \
+            echo "[     :12010: :12002 ]"; \
+            echo "[ in 4th window, type "\""forwarding"\"" and should see:  ]"; \
+            echo "[     :12000: :12004 ]"; \
+            echo "[     :12002: :12004 ]"; \
+            echo "[     :12004: :12004 ]"; \
+            echo "[     :12008: :12008 ]"; \
+            echo "[     :12010: :12008 ]"; \
+            echo "[ in 5th window, type "\""forwarding"\"" and should see:  ]"; \
+            echo "[     :12000: :12010 ]"; \
+            echo "[     :12002: :12010 ]"; \
+            echo "[     :12004: :12006 ]"; \
+            echo "[     :12006: :12006 ]"; \
+            echo "[     :12010: :12010 ]"; \
+            echo "[ in 6th window, type "\""forwarding"\"" and should see:  ]"; \
+            echo "[     :12000: :12002 ]"; \
+            echo "[     :12002: :12002 ]"; \
+            echo "[     :12004: :12002 ]"; \
+            echo "[     :12006: :12008 ]"; \
+            echo "[     :12008: :12008 ]"; \
+            echo "[ in all windows, type "\""forwarding"\"" and verify ]"; \
+            echo "[ type "\""quit"\"" in all windows ]"; \
+            echo "[ type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    # split the left pane vertically 33/67
+    tmux split-window -v -t 0 -p 50 '\
+            sleep 3; echo -n "(window4) "; \
+            script -c "./pa5 pa5data/pa5-12006.ini" script.A06.txt; \
+            echo "[ (4) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    tmux split-window -v -t 0 -p 33 '\
+            sleep 2; echo -n "(window3) "; \
+            script -c "./pa5 pa5data/pa5-12004.ini" script.A04.txt; \
+            echo "[ (3) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    tmux split-window -v -t 0 -p 50 '\
+            sleep 1; echo -n "(window2) "; \
+            script -c "./pa5 pa5data/pa5-12002.ini" script.A02.txt; \
+            echo "[ (2) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    tmux split-window -v -t 3 -p 33 '\
+            sleep 5; echo -n "(window6) "; \
+            script -c "./pa5 pa5data/pa5-12010.ini" script.A10.txt; \
+            echo "[ (6) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+    tmux split-window -v -t 3 -p 50 '\
+            sleep 4; echo -n "(window5) "; \
+            script -c "./pa5 pa5data/pa5-12008.ini" script.A08.txt; \
+            echo "[ (5) type <Ctrl+d> after server has quit to close this pane ]"; cat'
+
+    tmux attach-session -d -t ${session_name}
+endif

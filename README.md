@@ -41,6 +41,7 @@ The commands and their meanings are:
 ![截屏2022-01-17 上午3 25 48](https://user-images.githubusercontent.com/35575612/149761703-b6abfb02-377a-4d54-8f04-1b634718e58a.png)
 
 **Logging**
+
 Logging is extremely important in a networking application like this one. It should be very useful to help you debug this assignment. It's also extremely important because part of the grading will be done by looking at the log file your node produced. Without looking at the log, it would be very difficult for the grader to tell what your node is doing. The bottomline is that if you don't log all the required messages correctly, you could end up losing a lot of points!
 Every message coming into a node and every message going out of a node must be logged. The format for a line of log entry is as follows:
 

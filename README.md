@@ -1,11 +1,9 @@
 # Network of Servers in C++
 A simple application-layer network protocol, which is similar to the HTTP protocol in terms of message formats.
 
-In the real world, layer 4 and below are implemented inside the operating system. Since we are not doing kernel hacking in this class, we will implement these functionalities in an overlay network, i.e., an application-level network, layered on top of the Internet (also known as "over-the-top network" mentioned in Ch 2). In this assignment, we will impmlement layer 2 (linke layer) and layer 3 (network layer) functionalities in such an overlay network. We will use graph terminology to describe the topology of an overlay network. An end-system in an overlay network will be referred to as a node. In Ch 2, we talked about the peer-to-peer architecture, which can also be considered as an overlay network.
+This application impmlements layer 2 (linke layer) and layer 3 (network layer) functionalities in an peer-to-peer overlay network. We will use graph terminology to describe the topology of an overlay network. An end-system in an overlay network will be referred to as a node. Nodes in this network are part server, part client, and part router. 
 
-Conceptually, we can start with your PA3 web server and turn it into an autonomous and independently operated node in an overlay network. Nodes in this network are part server, part client, and part router. We will refer to this overlay network as 353NET. A pair of directly connected nodes are referred to as neighbors and the "direct connection" between them is a persistent TCP connection (i.e., you can send multiple messages over such a connection). We will use standard graph terminology to describe our network of nodes where a vertex is a node and an edge is a connection between a pair of neighboring nodes. Not all nodes in the 353NET may be up and running. With some nodes being down, the 353NET can be partitioned and that is not unusual.
-
-Neighboring nodes in a 353NET exchange messages by following the 353NET protocol described in the rest of this spec. The main goal we would like to achieve in this assignment is that every node in a 353NET knows the topology of the network partition it's in and maintains that information in an adjacency list data structure (similar to the one used in your PA1 assignment) and use this information to perform message routing for networking applications that would run on top of the 353NET in PA5. This needs to be achieved without an active central authority (although we will provide every node in the 353NET with an identical "network map").
+We will refer to this overlay network as 353NET. A pair of directly connected nodes are referred to as neighbors and the "direct connection" between them is a persistent TCP connection (i.e., you can send multiple messages over such a connection). We will use standard graph terminology to describe our network of nodes where a vertex is a node and an edge is a connection between a pair of neighboring nodes. Not all nodes in the 353NET may be up and running. With some nodes being down, the 353NET can be partitioned and that is not unusual.
 
 When you start a node, you must specify a configuration file to be used for that node and each node must use a different configuration file. Inside each configuration file is a map of the entire 353NET (for this assignment, this map is guaranteed to be identical in all the configuration files). Using this network map, a node can figure out which nodes are supposed to be its neighbors. When functioning as a router, the main job of this node is to make connections to all of its neighbors, if they are up and running. If every node does that and if all the nodes in the 353NET are up and running, the network that's formed should be identical to the network map. If some nodes are not running or died, the network formed should be identical to the original network map with those nodes and links to those nodes removed.
 
@@ -13,8 +11,8 @@ When you start a node, you must specify a configuration file to be used for that
 
 when the grader simply enters:
 
-make pa5 
-(or simply "make"), an executable named pa4 is created and the compiler command that gets run must start with "g++ -g -Wall -std=c++11". 
+    make pa5 
+An executable named pa4 is created and the compiler command that gets run must start with "g++ -g -Wall -std=c++11". 
 
 **Commandline Syntax**
 
@@ -54,7 +52,7 @@ TIMESTAMP is the current time in the same format as a PA2 timestamp. The next fi
 You must use "r" if the message was "received" by this node.
 You must use "i" if the message was sent and "initiated" by this node.
 You must use "d" if the message was sent due to "flooding" by this node (and not initiated by this node).
-(PA5 only) You must use "f" if the message was sent due to "forwarding" by this node (i.e., the message is a UCASTAPP message and is being "routed" by this node to reach a particular target/destination node and this node is not the initiator).
+You must use "f" if the message was sent due to "forwarding" by this node (i.e., the message is a UCASTAPP message and is being "routed" by this node to reach a particular target/destination node and this node is not the initiator).
 If the "category" is "r", then the NEIGHBOR field is the NodeID of the neighbor from which you received the corresponding message.
 
 If the "category" is "i", "d", or "f", then the NEIGHBOR field is the NodeID of the neighbor to which you sent the corresponding message.

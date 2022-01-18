@@ -9,7 +9,7 @@ When you start a node, you must specify a configuration file to be used for that
 
 **To Compile**
 
-when the grader simply enters:
+Simply enters:
 
     make pa5 
 An executable named pa4 is created and the compiler command that gets run must start with "g++ -g -Wall -std=c++11". 

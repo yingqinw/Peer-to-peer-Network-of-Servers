@@ -42,11 +42,10 @@ The commands and their meanings are:
 
 **Logging**
 
-Logging is extremely important in a networking application like this one. It should be very useful to help you debug this assignment. It's also extremely important because part of the grading will be done by looking at the log file your node produced. Without looking at the log, it would be very difficult for the grader to tell what your node is doing. The bottomline is that if you don't log all the required messages correctly, you could end up losing a lot of points!
-Every message coming into a node and every message going out of a node must be logged. The format for a line of log entry is as follows:
+Logging is important in a networking application, every message coming into a node and every message going out of a node must be logged. The format for a line of log entry is as follows:
 
     [TIMESTAMP] {r|i|d|f} MSGTYPE NEIGHBOR TTL FLOOD CONTENT_LENGTH msg-dependent-data
-TIMESTAMP is the current time in the same format as a PA2 timestamp. The next field is referred to as the "category" field. It's a single character and it can have 4 possible values:
+TIMESTAMP is the current time in the same format as a timestamp. The next field is referred to as the "category" field. It's a single character and it can have 4 possible values:
 
 You must use "r" if the message was "received" by this node.
 

@@ -35,11 +35,14 @@ The message header consists of lines of text, each of which is terminated by a "
 where VALUE may have leading and trailing space characters. The end of the message header is an empty line (i.e., only contains "\r\n").
 One of the lines in the message header must have the "Content-Length" key. The corresponding value specifies the exact number of bytes in the message body which immediately follows the empty line after the message header. Since we are using persistent TCP connections, within a connection, multiple messages can be sent. At the end of a message body, another message begins immediately. You must treat the message body as binary data when you are detecting message boundaries. You must reliably detect message boundaries or your node can get very confused.
 
+Below are the details of each of the 353NET protocol messages.
+
+![截屏2022-02-14 下午8 46 01](https://user-images.githubusercontent.com/35575612/153994333-9b5daa17-27b2-4ceb-ae6e-22630b3b0157.png)
+
 **User Console**
 
 Each node must have an interactive commandline interface. Your program must use "NODEID> " (i.e., the NodeID, followed by a "greater than" symbol, followed by a space character) as the command prompt to tell that user which node they are on and that you are expecting the user to enter a line of command. Unless the user shutdowns the node using the quit command, the node should run forever.
 The commands and their meanings are:
-![截屏2022-01-17 上午3 25 48](https://user-images.githubusercontent.com/35575612/149761703-b6abfb02-377a-4d54-8f04-1b634718e58a.png)
 
 **Logging**
 

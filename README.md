@@ -42,7 +42,21 @@ Below are the details of each of the 353NET protocol messages.
 **User Console**
 
 Each node must have an interactive commandline interface. Your program must use "NODEID> " (i.e., the NodeID, followed by a "greater than" symbol, followed by a space character) as the command prompt to tell that user which node they are on and that you are expecting the user to enter a line of command. Unless the user shutdowns the node using the quit command, the node should run forever.
+
 The commands and their meanings are:
+
+![截屏2022-02-14 下午8 48 22](https://user-images.githubusercontent.com/35575612/153994517-a8405c13-9a9a-4c9b-a586-1edd0af9663f.png)
+
+![截屏2022-02-14 下午8 48 33](https://user-images.githubusercontent.com/35575612/153994533-dd4bbf6a-69ac-40e8-8d35-971349725bea.png)
+
+![截屏2022-02-14 下午8 37 46](https://user-images.githubusercontent.com/35575612/153994543-ea57a00d-d3db-446f-aa4b-dfde8ad80860.png)
+
+![截屏2022-02-14 下午8 38 18](https://user-images.githubusercontent.com/35575612/153994557-f1062ace-58a0-4bc8-a5f8-76f2d9a0331c.png)
+
+![截屏2022-02-14 下午8 38 50](https://user-images.githubusercontent.com/35575612/153994574-3fcf8838-a9d5-480f-b1b3-cadfac3bb527.png)
+
+![截屏2022-02-14 下午8 48 43](https://user-images.githubusercontent.com/35575612/153994582-3aeaaa31-a93b-4164-b27f-4b2169b97316.png)
+
 
 **Logging**
 

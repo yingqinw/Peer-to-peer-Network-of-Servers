@@ -1,7 +1,8 @@
 # Peer-to-peer Network of Servers
-A simple application-layer network protocol, which is similar to the HTTP protocol in terms of message formats.
 
-This application impmlements layer 2 (linke layer) and layer 3 (network layer) and layer 4 (transport Layer) functionalities in an peer-to-peer overlay network. We will use graph terminology to describe the topology of an overlay network. An end-system in an overlay network will be referred to as a node. Nodes in this network are part server, part client, and part router. 
+**Basic Information**
+
+This network application impmlements layer 2 (linke layer) and layer 3 (network layer) and layer 4 (transport Layer) functionalities in an peer-to-peer overlay network. We will use graph terminology to describe the topology of an overlay network. An end-system in an overlay network will be referred to as a node. Nodes in this network are part server, part client, and part router. 
 
 We will refer to this overlay network as 353NET. A pair of directly connected nodes are referred to as neighbors and the "direct connection" between them is a persistent TCP connection (i.e., you can send multiple messages over such a connection). We will use standard graph terminology to describe our network of nodes where a vertex is a node and an edge is a connection between a pair of neighboring nodes. Not all nodes in the 353NET may be up and running. With some nodes being down, the 353NET can be partitioned and that is not unusual.
 

@@ -77,8 +77,7 @@ If the "category" is "i", "d", or "f", then the NEIGHBOR field is the NodeID of 
 
 A configuration file is a file in the INI format. Below is an example of a configuration file that you would use:
 
-    make pa5 
-        [startup]
+    [startup]
     host=
     port=12000
     logfile=pa4data/12000.log
@@ -115,4 +114,8 @@ A configuration file is a file in the INI format. Below is an example of a confi
     LSUPDATE=0
     UCASTAPP=1
 
-
+The "[startup]" section is required and it must contain the following key=value lines (can come in any order and additional keys can be ignored):
+* host=hostname - hostname is name of the machine your server must serve on.
+* port=number - number is the Control Port Number your server must listen on. 
+* pidfile=pidfilename - pidfilename is the file name of a file for storing the process ID of your server.
+* logfile=logfilename - logfilename is the file name of a file for logging messages.

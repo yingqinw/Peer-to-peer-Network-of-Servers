@@ -39,20 +39,6 @@ Below are the details of each of the 353NET protocol messages.
 
 ![截屏2022-02-14 下午8 46 01](https://user-images.githubusercontent.com/35575612/153994333-9b5daa17-27b2-4ceb-ae6e-22630b3b0157.png)
 
-**User Console**
-
-Each node must have an interactive commandline interface. Your program must use "NODEID> " (i.e., the NodeID, followed by a "greater than" symbol, followed by a space character) as the command prompt to tell that user which node they are on and that you are expecting the user to enter a line of command. Unless the user shutdowns the node using the quit command, the node should run forever.
-
-The commands and their meanings are:
-
-![截屏2022-02-14 下午8 48 22](https://user-images.githubusercontent.com/35575612/153994517-a8405c13-9a9a-4c9b-a586-1edd0af9663f.png)
-![截屏2022-02-14 下午8 48 33](https://user-images.githubusercontent.com/35575612/153994533-dd4bbf6a-69ac-40e8-8d35-971349725bea.png)
-![截屏2022-02-14 下午8 51 06](https://user-images.githubusercontent.com/35575612/153994847-f11d9424-5b76-4d7c-9f52-64357a88f265.png)
-![截屏2022-02-14 下午8 51 21](https://user-images.githubusercontent.com/35575612/153994857-4e776b57-11a5-4fba-88e5-c691e7de49f8.png)
-![截屏2022-02-14 下午8 51 32](https://user-images.githubusercontent.com/35575612/153994864-5e56baff-1b0a-402b-bbf7-2d03ecf9d87a.png)
-![截屏2022-02-14 下午8 51 48](https://user-images.githubusercontent.com/35575612/153994873-e7e56c4b-79ce-485a-bdd9-32b503d413a4.png)
-![截屏2022-02-14 下午8 48 43](https://user-images.githubusercontent.com/35575612/153994582-3aeaaa31-a93b-4164-b27f-4b2169b97316.png)
-
 **Configuration File Format**
 
 A configuration file is a file in the INI format. Below is an example of a configuration file that you would use:
@@ -104,3 +90,17 @@ All the other sections of the configuration files are identical for all nodes in
 The "[topology]" section is required and it contains key=value lines where a key is a NodeID and value is a list of comma-separated NodeIDs to mean that the node named in key should be neighbors with all the nodes listed in the corresponding value.
 
 The "[map]" section is optional and it's empty (since everything in it are comments). This section a graphic representation of the network topology when all the nodes in the 353NET are up and running and connected to all its neighbors.
+
+**User Console**
+
+Each node must have an interactive commandline interface. Your program must use "NODEID> " (i.e., the NodeID, followed by a "greater than" symbol, followed by a space character) as the command prompt to tell that user which node they are on and that you are expecting the user to enter a line of command. Unless the user shutdowns the node using the quit command, the node should run forever.
+
+The commands and their meanings are:
+
+![截屏2022-02-14 下午8 48 22](https://user-images.githubusercontent.com/35575612/153994517-a8405c13-9a9a-4c9b-a586-1edd0af9663f.png)
+![截屏2022-02-14 下午8 48 33](https://user-images.githubusercontent.com/35575612/153994533-dd4bbf6a-69ac-40e8-8d35-971349725bea.png)
+![截屏2022-02-14 下午8 51 06](https://user-images.githubusercontent.com/35575612/153994847-f11d9424-5b76-4d7c-9f52-64357a88f265.png)
+![截屏2022-02-14 下午8 51 21](https://user-images.githubusercontent.com/35575612/153994857-4e776b57-11a5-4fba-88e5-c691e7de49f8.png)
+![截屏2022-02-14 下午8 51 32](https://user-images.githubusercontent.com/35575612/153994864-5e56baff-1b0a-402b-bbf7-2d03ecf9d87a.png)
+![截屏2022-02-14 下午8 51 48](https://user-images.githubusercontent.com/35575612/153994873-e7e56c4b-79ce-485a-bdd9-32b503d413a4.png)
+![截屏2022-02-14 下午8 48 43](https://user-images.githubusercontent.com/35575612/153994582-3aeaaa31-a93b-4164-b27f-4b2169b97316.png)

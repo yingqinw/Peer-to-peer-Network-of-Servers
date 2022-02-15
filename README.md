@@ -46,9 +46,11 @@ Each node must have an interactive commandline interface. Your program must use 
 The commands and their meanings are:
 
 ![截屏2022-02-14 下午8 48 22](https://user-images.githubusercontent.com/35575612/153994517-a8405c13-9a9a-4c9b-a586-1edd0af9663f.png)
-
 ![截屏2022-02-14 下午8 48 33](https://user-images.githubusercontent.com/35575612/153994533-dd4bbf6a-69ac-40e8-8d35-971349725bea.png)
-
+![截屏2022-02-14 下午8 51 06](https://user-images.githubusercontent.com/35575612/153994847-f11d9424-5b76-4d7c-9f52-64357a88f265.png)
+![截屏2022-02-14 下午8 51 21](https://user-images.githubusercontent.com/35575612/153994857-4e776b57-11a5-4fba-88e5-c691e7de49f8.png)
+![截屏2022-02-14 下午8 51 32](https://user-images.githubusercontent.com/35575612/153994864-5e56baff-1b0a-402b-bbf7-2d03ecf9d87a.png)
+![截屏2022-02-14 下午8 51 48](https://user-images.githubusercontent.com/35575612/153994873-e7e56c4b-79ce-485a-bdd9-32b503d413a4.png)
 ![截屏2022-02-14 下午8 48 43](https://user-images.githubusercontent.com/35575612/153994582-3aeaaa31-a93b-4164-b27f-4b2169b97316.png)
 
 

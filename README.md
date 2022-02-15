@@ -119,3 +119,13 @@ The "[startup]" section is required and it must contain the following key=value 
 * port=number - number is the Control Port Number your server must listen on. 
 * pidfile=pidfilename - pidfilename is the file name of a file for storing the process ID of your server.
 * logfile=logfilename - logfilename is the file name of a file for logging messages.
+
+All the other sections of the configuration files are identical for all nodes in the 353NET. The only section that's different in all the configuration files is the "[startup]" section.
+
+* max_ttl=number - This is referred to as the Max TTL of your node. number is the TTL value your node must put into a message header when it initiates a flooded or routed message and it must be an integer > 0 and < 256.
+* msg_lifetime=number - This is referred to as the Message Life Time of your node.
+* neighbor_retry_interval=number - This is referred to as the Neighbor Retry Interval of your node.
+
+The "[topology]" section is required and it contains key=value lines where a key is a NodeID and value is a list of comma-separated NodeIDs to mean that the node named in key should be neighbors with all the nodes listed in the corresponding value.
+
+The "[map]" section is optional and it's empty (since everything in it are comments). This section a graphic representation of the network topology when all the nodes in the 353NET are up and running and connected to all its neighbors.

@@ -53,26 +53,6 @@ The commands and their meanings are:
 ![截屏2022-02-14 下午8 51 48](https://user-images.githubusercontent.com/35575612/153994873-e7e56c4b-79ce-485a-bdd9-32b503d413a4.png)
 ![截屏2022-02-14 下午8 48 43](https://user-images.githubusercontent.com/35575612/153994582-3aeaaa31-a93b-4164-b27f-4b2169b97316.png)
 
-
-**Logging**
-
-Logging is important in a networking application, every message coming into a node and every message going out of a node must be logged. The format for a line of log entry is as follows:
-
-    [TIMESTAMP] {r|i|d|f} MSGTYPE NEIGHBOR TTL FLOOD CONTENT_LENGTH msg-dependent-data
-TIMESTAMP is the current time in the same format as a timestamp. The next field is referred to as the "category" field. It's a single character and it can have 4 possible values:
-
-You must use "r" if the message was "received" by this node.
-
-You must use "i" if the message was sent and "initiated" by this node.
-
-You must use "d" if the message was sent due to "flooding" by this node (and not initiated by this node).
-
-You must use "f" if the message was sent due to "forwarding" by this node (i.e., the message is a UCASTAPP message and is being "routed" by this node to reach a particular target/destination node and this node is not the initiator).
-
-If the "category" is "r", then the NEIGHBOR field is the NodeID of the neighbor from which you received the corresponding message.
-
-If the "category" is "i", "d", or "f", then the NEIGHBOR field is the NodeID of the neighbor to which you sent the corresponding message.
-
 **Configuration File Format**
 
 A configuration file is a file in the INI format. Below is an example of a configuration file that you would use:
@@ -108,11 +88,6 @@ A configuration file is a file in the INI format. Below is an example of a confi
     ;                 |  +-------+  |
     ;                 \--+ 12012 +--/
     ;                    +-------+
-
-    [logging]
-    SAYHELLO=1
-    LSUPDATE=0
-    UCASTAPP=1
 
 The "[startup]" section is required and it must contain the following key=value lines (can come in any order and additional keys can be ignored):
 * host=hostname - hostname is name of the machine your server must serve on.

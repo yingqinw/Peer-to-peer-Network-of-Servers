@@ -76,6 +76,7 @@ A configuration file is a file in the INI format. Below is an example of a confi
     ;                    +-------+
 
 The "[startup]" section is required and it must contain the following key=value lines (can come in any order and additional keys can be ignored):
+
 * host=hostname - hostname is name of the machine your server must serve on.
 * port=number - number is the Control Port Number your server must listen on. 
 * pidfile=pidfilename - pidfilename is the file name of a file for storing the process ID of your server.
@@ -83,7 +84,7 @@ The "[startup]" section is required and it must contain the following key=value 
 
 All the other sections of the configuration files are identical for all nodes in the 353NET. The only section that's different in all the configuration files is the "[startup]" section.
 
-    make pa5* max_ttl=number - This is referred to as the Max TTL of your node. number is the TTL value your node must put into a message header when it initiates a flooded or routed message and it must be an integer > 0 and < 256.
+* max_ttl=number - This is referred to as the Max TTL of your node. number is the TTL value your node must put into a message header when it initiates a flooded or routed message and it must be an integer > 0 and < 256.
 * msg_lifetime=number - This is referred to as the Message Life Time of your node.
 * neighbor_retry_interval=number - This is referred to as the Neighbor Retry Interval of your node.
 

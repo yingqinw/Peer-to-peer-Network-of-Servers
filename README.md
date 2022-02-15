@@ -73,4 +73,46 @@ If the "category" is "r", then the NEIGHBOR field is the NodeID of the neighbor 
 
 If the "category" is "i", "d", or "f", then the NEIGHBOR field is the NodeID of the neighbor to which you sent the corresponding message.
 
+**Configuration File Format**
+
+A configuration file is a file in the INI format. Below is an example of a configuration file that you would use:
+
+    make pa5 
+        [startup]
+    host=
+    port=12000
+    logfile=pa4data/12000.log
+
+    [params]
+    max_ttl=9
+    msg_lifetime=8
+    neighbor_retry_interval=4
+
+    [topology]
+    :12000=:12002
+    :12002=:12000,:12004,:12010,:12012
+    :12004=:12002,:12006,:12012
+    :12006=:12004,:12008
+    :12008=:12006,:12010
+    :12010=:12002,:12008
+    :12012=:12002,:12004
+
+    [map]
+    ;                    +-------+
+    ;                 /--+ 12010 +--------------------------\
+    ;                 |  +-------+                          |
+    ;                 |                                     |
+    ; +-------+   +---+---+     +-------+   +-------+   +---+---+
+    ; | 12000 +---+ 12002 +-----+ 12004 +---+ 12006 +---+ 12008 |
+    ; +-------+   +---+---+     +---+---+   +-------+   +-------+
+    ;                 |             |
+    ;                 |  +-------+  |
+    ;                 \--+ 12012 +--/
+    ;                    +-------+
+
+    [logging]
+    SAYHELLO=1
+    LSUPDATE=0
+    UCASTAPP=1
+
 

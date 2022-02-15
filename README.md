@@ -16,7 +16,7 @@ An executable named pa4 is created and the compiler command that gets run must s
 
 **Commandline Syntax**
 
-The commandline syntax (also known as "usage information") for the application is as follows:
+The commandline syntax for the application is as follows:
 
     pa5 CONFIGFILE
 The CONFIGFILE is a configuration file that contains all the information your node needs in order to function in the 353NET.

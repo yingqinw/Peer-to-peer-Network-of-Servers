@@ -1,6 +1,6 @@
 # Peer-to-peer Network of Servers
 
-**Basic Information**
+**1. Basic Information**
 
 This network application impmlements layer 2 (link layer) and layer 3 (network layer) and layer 4 (transport Layer) functionalities in an peer-to-peer overlay network. Nodes in this network are part server, part client, and part router. 
 
@@ -8,22 +8,20 @@ We will refer to this overlay network as 353NET. A pair of directly connected no
 
 When you start a node, you must specify a configuration file to be used for that node and each node must use a different configuration file. Inside each configuration file is a map of the entire 353NET. Using this network map, a node can figure out which nodes are supposed to be its neighbors. When functioning as a router, the main job of this node is to make connections to all of its neighbors, if they are up and running. If every node does that and if all the nodes in the 353NET are up and running, the network that's formed should be identical to the network map. If some nodes are not running or died, the network formed should be identical to the original network map with those nodes and links to those nodes removed.
 
-**To Compile**
+**2. Commandline Syntax**
 
-Simply enters:
+To compile the application, simply enters in the termianl:
 
     make pa5 
 An executable named pa5 is created and the compiler command that gets run must start with "g++ -g -Wall -std=c++11". 
 
-**Commandline Syntax**
-
-The commandline syntax for the application is as follows:
+To run the application, the commandline syntax is as follows:
 
     pa5 CONFIGFILE
 The CONFIGFILE is a configuration file that contains all the information your node needs in order to function in the 353NET.
 Unless otherwise specified, output of your program must go to cout and error messages must go to stderr/cerr.
 
-**353NET Protocol Message Format**
+**3. 353NET Protocol Message Format**
 
 The 353NET protocol message format is similar in design to the HTTP protocol message format. All 353NET protocol messages has a message header which is followed by an empty line and an optional message body. The first line of a message must be in the following format:
 
@@ -41,7 +39,7 @@ Below are the details of each of the 353NET protocol messages.
 
 ![截屏2022-02-14 下午8 46 01](https://user-images.githubusercontent.com/35575612/153994333-9b5daa17-27b2-4ceb-ae6e-22630b3b0157.png)
 
-**Configuration File Format**
+**4. Configuration File Format**
 
 A configuration file is a file in the INI format. Below is an example of a configuration file that you would use:
 
@@ -94,7 +92,7 @@ The "[topology]" section is required and it contains key=value lines where a key
 
 The "[map]" section is optional and it's empty (since everything in it are comments). This section a graphic representation of the network topology when all the nodes in the 353NET are up and running and connected to all its neighbors.
 
-**User Console**
+**5. User Console**
 
 Each node must have an interactive commandline interface. Your program must use "NODEID> " (i.e., the NodeID, followed by a "greater than" symbol, followed by a space character) as the command prompt to tell that user which node they are on and that you are expecting the user to enter a line of command. Unless the user shutdowns the node using the quit command, the node should run forever.
 
